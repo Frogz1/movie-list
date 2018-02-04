@@ -15,6 +15,8 @@ var Search = (props) => {
 
     var titles = props.movies.map((ele, ind) =>{
 
+        if (ind > 4 || props.movies.length === 5)
+
         return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ?
            <li key={ind} className="list-group-item" > {  ele.title  }</li> : 
        null;
