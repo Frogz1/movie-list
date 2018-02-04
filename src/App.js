@@ -23,12 +23,18 @@ class App extends Component {
         }
       ],
 
-      query: ''
+      query: '',
+      show: false
     }
   }
 
   componentWillReceiveProps(e) {
     this.setState({query: e.target.value})
+  }
+  toggleModal() {
+    this.setState({
+      show: !this.state.show
+    })
   }
 
   render() {
@@ -56,7 +62,8 @@ class App extends Component {
           <Jumbotron >
 
             <ul className="list-group">
-              <Search movies={this.state.movies} query={this.state.query}/>
+            
+              <Search movies={this.state.movies} query={this.state.query} modalToggle={this.toggleModal.bind(this)}/>
 
             </ul>
           </Jumbotron>
