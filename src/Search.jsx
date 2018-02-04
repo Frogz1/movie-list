@@ -19,7 +19,7 @@ var Search = (props) => {
            <li key={ind} className="list-group-item" > {  ele.title  }</li> : 
        null;
     });
-    console.log(titles)
+
     if (titles.filter((x,y) => x !== null).length < 1) {
         return <li className="list-group-item list-group-item-danger" style={{color: 'red', border: 'none'}} >no movie by that name found..<br /><em>please try again</em></li>
             

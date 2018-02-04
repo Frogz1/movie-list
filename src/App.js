@@ -24,7 +24,8 @@ class App extends Component {
       ],
 
       query: '',
-      show: false
+      show: false,
+      newTitle: ''
     }
   }
 
@@ -35,6 +36,21 @@ class App extends Component {
     this.setState({
       show: !this.state.show
     })
+  }
+  addMovie() {
+    // var movies = this.state.movies
+    // console.log(movies);
+
+    // movies.push({'title': this.state.newTitle})
+    // console.log(movies)
+    // this.setState({
+    //   movies : this.movies.slice()
+    //   // movies: newMovie
+
+    // })
+    
+
+
   }
 
   render() {
@@ -50,10 +66,25 @@ class App extends Component {
           <form style={{margin: '10px', float: 'left'}} className="form-inline">
             <div className="form-group">
               <div className=" col-md-6 input-group">
-              <input type="text" className="form-control" placeholder="add movie title here"/> 
+              <input onChange={(e) => this.setState({
+                newTitle: e.target.value
+              })}
+                  type="label" ref="newtitle" className="form-control" placeholder="add movie title here"/> 
               </div>
           </div>
-          <button type="submit" className="btn btn-default">Add Movie</button>
+          <button onClick={() => {
+            var movies = this.state.movies
+    console.log(movies);
+
+    movies.push({'title': this.state.newTitle})
+    this.setState({
+      movies: movies,
+      newTitle: ''
+    })
+    this.refs.newtitle.value = ''
+
+            
+            }} type="button" className="btn btn-default">Add Movie</button>
       </form>
       <form style={{margin: '10px'}} className="form-inline">
 
