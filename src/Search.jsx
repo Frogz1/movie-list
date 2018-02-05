@@ -1,27 +1,23 @@
 import React, { Component }  from 'react';
+import { ListGroupItem, Col, Badge} from 'react-bootstrap';
 
-import { ListGroupItem } from 'react-bootstrap';
+
 var Search = (props) => {
-     this.modal = {
-        show: false
-        
-    }
-    this.toggleMe = () =>
-        {
-        this.modal.show = !this.modal.show
-        }   
     
-
-    
-
     var titles = props.movies.map((ele, ind) => {
 
         if (ind > 4 || props.movies.length === 5){
 
-        return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ?
-           <li key={ind} className="list-group-item" > {  ele.title  }</li> : 
-       null;
-        }
+            return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ?
+            <ListGroupItem key={ind}> {  ele.title  } <Badge bsStyle="success" 
+            onClick={ (e) => {
+                if (e.target.className === props.classNames.default) { 
+                    e.target.className = props.classNames.success 
+                } else { 
+                  e.target.className = props.classNames.default
+                }
+            }}>
+            { props.watched === true ? 'watched':'watched'}</Badge></ListGroupItem> : null; }
         
     });
 

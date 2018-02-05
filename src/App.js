@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {Navbar, Jumbotron, Button, ListGroup, ListGroupItem, FormControl, FormGroup, ButtonGroup, InputGroup, InputGroupButton} from 'react-bootstrap';
+import { Grid, Button, ListGroup, Badge,  FormControl, FormGroup, InputGroup, Panel, Col, PageHeader, ButtonProps} from 'react-bootstrap';
+// import 'bootstrap/dist/css/bootstrap.css'
 import Search from './Search';
+
 
 class App extends Component {
 
@@ -25,7 +26,12 @@ class App extends Component {
 
       query: '',
       show: false,
-      newTitle: ''
+      newTitle: '',
+      watched: true,
+      classNames: {
+        success: 'badge badge-success',
+        default: 'badge badge-danger'
+      }
     }
   }
 
@@ -48,14 +54,17 @@ class App extends Component {
     return (
 
       <div className="App">
-      
-        <div className="page-header">
-          <h1 className="header">Movie List</h1>
-        </div>
-        <div className="container">
 
-          <form
-            style={{margin: '10px' }} className="form-inline">
+      <Grid>
+      <Col  xs={6} md={4} lg={6}>
+       <Panel>
+
+          <PageHeader>Movie List</PageHeader>
+
+          <Panel.Body>
+       
+
+          <form>
           <FormGroup>
           <InputGroup>
           <FormControl
@@ -74,20 +83,18 @@ class App extends Component {
               movies.push({'title': this.state.newTitle});
               this.setState({movies: movies, newTitle: ''});
               this.input.value = ''
-            }}  type="button">Add Movie</Button>
+            }}  type="button" >Add</Button>
               </InputGroup.Button>
               </InputGroup>
             </FormGroup>
           </form>
-          <form style={{
-            margin: '10px'
-          }} className="form-inline">
+          <form>
           <FormGroup>
           <InputGroup>
               <FormControl
                 type="text"
                 placeholder="search...."
-                inputRef={ ref => this.input = ref}
+                // inputRef={ ref => this.input = ref}
                 onChange={(e) => {
                 this.setState({query: e.target.value})
                 Search.componentWillUpdate;
@@ -96,29 +103,36 @@ class App extends Component {
                 id="movies">
                 </FormControl>
 
-            <InputGroup.Button>
-            <Button onClick={ () =>
+
+            <Button bsStyle="default" onClick={ () =>
                 this.input.value = ''}>
               Go !!!
+              
             </Button>
-            </InputGroup.Button>
             </InputGroup>
             </FormGroup>
           </form>
+          
+          
 
-        <div className="container">
-          <Jumbotron>
-            <ListGroup className="list-group">
+          <ListGroup >
               <Search
+                classNames={this.state.classNames}
+                watched={this.state.watched}
                 movies={this.state.movies}
                 query={this.state.query}
                 modalToggle={this
                 .toggleModal
-                .bind(this)}/>
+                .bind(this)} />
+                
             </ListGroup>
-          </Jumbotron>
-        </div>
-      </div>
+            
+
+          </Panel.Body>
+        </Panel>
+        </Col>
+        </Grid>
+       
       </div>
 
 

@@ -1,7 +1,9 @@
-.App {
-  text-align: center;
+.badge {
+  float: right;
 }
-
+body {
+  margin-top: 35px;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
