@@ -83,7 +83,7 @@ class App extends Component {
               movies.push({'title': this.state.newTitle});
               this.setState({movies: movies, newTitle: ''});
               this.input.value = ''
-            }}  type="button" >Add</Button>
+            }}  type="button" bsStyle="primary">Add</Button>
               </InputGroup.Button>
               </InputGroup>
             </FormGroup>
@@ -104,7 +104,7 @@ class App extends Component {
                 </FormControl>
 
 
-            <Button bsStyle="default" onClick={ () =>
+            <Button onClick={ () =>
                 this.input.value = ''}>
               Go !!!
               
