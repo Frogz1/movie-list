@@ -1,23 +1,23 @@
-import React, { Component }  from 'react';
+import React, { Component, unstable_renderSubtreeIntoContainer }  from 'react';
 import { ListGroupItem, Col, Badge} from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import  WatchedBadge  from './WatchedBadge';
 
 
 var Search = (props) => {
     
-    var titles = props.movies.map((ele, ind) => {
+    
+    var titles = props.movies.map((ele, ind) => { 
 
-        if (ind > 4 || props.movies.length === 5){
+        if (ind > 4 || props.movies.length === 5) {
 
-            return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ?
-            <ListGroupItem key={ind}> {  ele.title  } <Badge bsStyle="success" 
-            onClick={ (e) => {
-                if (e.target.className === props.classNames.default) { 
-                    e.target.className = props.classNames.success 
-                } else { 
-                  e.target.className = props.classNames.default
-                }
-            }}>
-            { props.watched === true ? 'watched':'watched'}</Badge></ListGroupItem> : null; }
+                return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ? 
+            <ListGroupItem button="false" key={ind} ind={ind} >{ele.title}</ListGroupItem> : null; 
+            // } else {
+            //     return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ? 
+            //     <ListGroupItem key={ind} ind={ind} >{  ele.title   } </ListGroupItem> : null; 
+            // }
+        }
         
     });
 
@@ -46,7 +46,23 @@ var Search = (props) => {
     // );
 // }
 
+// < Badge bsStyle = "success" hidden = {
+//     props.hidden
+// }
+// onClick = {
+//     (e) => {
 
+//         if (e.target.className === props.classNames.default) {
+//             e.target.className = props.classNames.success
+//         } else {
+//             e.target.className = props.classNames.default
+//         }
+//     }
+// } > {
+//     props.watched === true
+//         ? 'watched'
+//         : 'watched'
+// } < /Badge>
 
 
 export default Search;

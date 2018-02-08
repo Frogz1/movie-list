@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import { Grid, Button, ListGroup, Badge,  FormControl, FormGroup, InputGroup, Panel, Col, PageHeader, ButtonProps} from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.css'
 import Search from './Search';
+import WatchedBadge from './WatchedBadge';
+import MovieListItem from './MovieListItem';
+
 
 
 class App extends Component {
@@ -12,15 +16,20 @@ class App extends Component {
     this.state = {
       movies: [
         {
-          title: 'Mean Girls'
+          title: 'Mean Girls',
+          watched: true
         }, {
-          title: 'Hackers'
+          title: 'Hackers',
+          watched: false
         }, {
-          title: 'The Grey'
+          title: 'The Grey',
+          watched: false
         }, {
-          title: 'Sunshine'
+          title: 'Sunshine',
+          watched: false
         }, {
-          title: 'Ex Machina'
+          title: 'Ex Machina',
+          watched: false
         }
       ],
 
@@ -31,19 +40,28 @@ class App extends Component {
       classNames: {
         success: 'badge badge-success',
         default: 'badge badge-danger'
-      }
+      },
+      badge: <Badge bsStyle="success"></Badge>,
+      hidden: true
+      
     }
   }
 
   componentWillReceiveProps(e) {
     this.setState({query: e.target.value})
   }
-  toggleModal() {
+  
+  toggleBadge(e) {
+    console.log(e)
+    console.log(this.state.movies[e].watched)
     this.setState({
-      show: !this.state.show
+      movies: !this.state.movies[e].watched
     })
   }
   addMovie() {
+    return ( 
+      <WatchedBadge />
+    )
     // var movies = this.state.movies console.log(movies); movies.push({'title':
     // this.state.newTitle}) console.log(movies) this.setState({   movies :
     // this.movies.slice()   // movies: newMovie })
@@ -58,6 +76,7 @@ class App extends Component {
       <Grid>
       <Col  xs={6} md={4} lg={6}>
        <Panel>
+       
 
           <PageHeader>Movie List</PageHeader>
 
@@ -80,7 +99,7 @@ class App extends Component {
               var movies = this
                 .state
                 .movies
-              movies.push({'title': this.state.newTitle});
+              movies.push({'title': this.state.newTitle, 'watched':false});
               this.setState({movies: movies, newTitle: ''});
               this.input.value = ''
             }}  type="button" bsStyle="primary">Add</Button>
@@ -107,7 +126,9 @@ class App extends Component {
             <Button onClick={ () =>
                 this.input.value = ''}>
               Go !!!
-              
+              {
+                this.addMovie()
+              }
             </Button>
             </InputGroup>
             </FormGroup>
@@ -116,14 +137,23 @@ class App extends Component {
           
 
           <ListGroup >
+          <MovieListItem toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
               <Search
+             
                 classNames={this.state.classNames}
                 watched={this.state.watched}
                 movies={this.state.movies}
                 query={this.state.query}
-                modalToggle={this
-                .toggleModal
-                .bind(this)} />
+                hidden={this.state.hidden}
+                 movie={
+                this.addMovie.bind(this)
+                      }
+
+                  
+                  >
+                <Badge bsStyle="success" />>            
+                
+                 </Search>
                 
             </ListGroup>
             
