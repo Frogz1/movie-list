@@ -6,6 +6,8 @@ import { Grid, Button, ListGroup, Badge,  FormControl, FormGroup, InputGroup, Pa
 import Search from './Search';
 import WatchedBadge from './WatchedBadge';
 import MovieListItem from './MovieListItem';
+import WatchButton from './WatchButton';
+import ToWatchButton from './ToWatchButton';
 
 
 
@@ -139,7 +141,8 @@ class App extends Component {
           </form>
           
           
-
+          <WatchButton bsStyle="btn btn-success" />
+          <ToWatchButton />
           <ListGroup >
           <MovieListItem query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
              
