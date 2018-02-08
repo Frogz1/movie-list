@@ -17,7 +17,7 @@ class App extends Component {
       movies: [
         {
           title: 'Mean Girls',
-          watched: true
+          watched: false
         }, {
           title: 'Hackers',
           watched: false
@@ -51,12 +51,12 @@ class App extends Component {
     this.setState({query: e.target.value})
   }
   
-  toggleBadge(e) {
-    console.log(e)
-    console.log(this.state.movies[e].watched)
+  toggleBadge(i) {
+    let watchedMovies = this.state.movies;
+    watchedMovies[i].watched = !this.state.movies[i].watched;
     this.setState({
-      movies: !this.state.movies[e].watched
-    })
+      movies: watchedMovies
+    });
   }
   addMovie() {
     return ( 
@@ -88,21 +88,33 @@ class App extends Component {
           <InputGroup>
           <FormControl
                   onChange={(e) => this.setState({newTitle: e.target.value})}
+                  button="false"
                   type="text"
                   ref="newtitle"
                   inputRef ={ ref => this.input = ref }
-                  placeholder="add movie title here" >
+                  placeholder="add movie title here" 
+                  onSubmit={(e) => {
+                        e.preventDefault();
+                    
+                        if (e.key === 'Enter') {                      
+                        var movies = this.state.movies;
+                        movies.push({'title': this.state.newTitle, 'watched':false});
+                        this.setState({movies: movies, newTitle: ''});
+                        this.input.value = ''
+                        
+                    }}}
+                      >
+
                   </FormControl>
                   <InputGroup.Button>
             <Button
-              onClick={() => {
-              var movies = this
-                .state
-                .movies
+              onClick={(e) => {
+                e.preventDefault();
+              var movies = this.state.movies;
               movies.push({'title': this.state.newTitle, 'watched':false});
               this.setState({movies: movies, newTitle: ''});
               this.input.value = ''
-            }}  type="button" bsStyle="primary">Add</Button>
+            }}  type="submit" bsStyle="primary">Add</Button>
               </InputGroup.Button>
               </InputGroup>
             </FormGroup>
@@ -115,21 +127,13 @@ class App extends Component {
                 placeholder="search...."
                 // inputRef={ ref => this.input = ref}
                 onChange={(e) => {
-                this.setState({query: e.target.value})
-                Search.componentWillUpdate;
-              }}
+                  this.setState({query: e.target.value})
+                  MovieListItem.componentWillUpdate;
+                  }}
                 className="form-control"
                 id="movies">
                 </FormControl>
-
-
-            <Button onClick={ () =>
-                this.input.value = ''}>
-              Go !!!
-              {
-                this.addMovie()
-              }
-            </Button>
+            <Button onClick={ () => this.input.value = ''}>Go !!!</Button>
             </InputGroup>
             </FormGroup>
           </form>
@@ -137,24 +141,8 @@ class App extends Component {
           
 
           <ListGroup >
-          <MovieListItem toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
-              <Search
+          <MovieListItem query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
              
-                classNames={this.state.classNames}
-                watched={this.state.watched}
-                movies={this.state.movies}
-                query={this.state.query}
-                hidden={this.state.hidden}
-                 movie={
-                this.addMovie.bind(this)
-                      }
-
-                  
-                  >
-                <Badge bsStyle="success" />>            
-                
-                 </Search>
-                
             </ListGroup>
             
 

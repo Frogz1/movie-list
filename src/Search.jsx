@@ -13,10 +13,7 @@ var Search = (props) => {
 
                 return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ? 
             <ListGroupItem button="false" key={ind} ind={ind} >{ele.title}</ListGroupItem> : null; 
-            // } else {
-            //     return ele.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ? 
-            //     <ListGroupItem key={ind} ind={ind} >{  ele.title   } </ListGroupItem> : null; 
-            // }
+
         }
         
     });
