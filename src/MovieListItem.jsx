@@ -1,13 +1,14 @@
 import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import {ListGroupItem, Badge} from 'react-bootstrap'
+import MoviePanel from './MoviePanel';
 
 var MovieListItem = (props) => {
   var mappedMovies = props
     .movies
     .map((movie, i) => {
       if (i > 4 || props.movies.length === 5) {
-        return movie.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 && movie.watched === props.watchUnWatch ? <ListGroupItem button="false" key={i} onClickCapture={() => props.toggle(i)}>
+        return movie.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 && movie.watched === props.watchUnWatch ? <ListGroupItem button="false" key={i} onClickCapture={() => props.toggle(i)}><MoviePanel expanded={props.expanded} onToggle={props.handleExpand}>hi</MoviePanel>
           <Badge hidden={!movie.watched} bsClass='badge badge-success'>watched</Badge>
           {movie.title}
         </ListGroupItem> : null;

@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import { Grid, Button, ListGroup, Badge,  FormControl, FormGroup, InputGroup, Panel, Col, PageHeader, ButtonProps} from 'react-bootstrap';
+import { Grid, Button, ListGroup, Badge,  FormControl, FormGroup, InputGroup, Panel, Col, PageHeader, ButtonProps, ButtonGroup} from 'react-bootstrap';
 // import 'bootstrap/dist/css/bootstrap.css'
 import Search from './Search';
 import WatchedBadge from './WatchedBadge';
 import MovieListItem from './MovieListItem';
 import WatchButton from './WatchButton';
 import ToWatchButton from './ToWatchButton';
+import MoviePanel from './MoviePanel';
 
 
 
@@ -46,15 +47,15 @@ class App extends Component {
       newTitle: '',
       watched: true,
       classNames: {
-        success: 'badge badge-success',
-        default: 'badge badge-danger'
+        success: 'success',
+        default: 'default'
       },
       badge: <Badge bsStyle="success"></Badge>,
       hidden: true      
     }
   }
   
-  handleWatched() {
+  handleWatched(e) {
     this.setState({
       mode: false
     })
@@ -102,28 +103,25 @@ class App extends Component {
 
           <form>
           <FormGroup>
-          <InputGroup>
-          <FormControl
-                  onChange={(e) => this.setState({newTitle: e.target.value})}
-                  button="false"
-                  type="text"
-                  ref="newtitle"
-                  inputRef ={ ref => this.input = ref }
-                  placeholder="add movie title here" 
-                  onSubmit={(e) => {
-                        e.preventDefault();
-                    
-                        if (e.key === 'Enter') {                      
-                        var movies = this.state.movies;
-                        movies.push({'title': this.state.newTitle, 'watched':false} );
-                        this.setState({movies: movies, newTitle: ''});
-                        this.input.value = ''
+            <InputGroup>
+              <FormControl
+                      onChange={(e) => this.setState({newTitle: e.target.value})}
+                      button="false"
+                      type="text"
+                      ref="newtitle"
+                      inputRef ={ ref => this.input = ref }
+                      placeholder="add movie title here" 
+                      onSubmit={(e) => {
+                            e.preventDefault();
                         
-                    }}}
-                      >
-
-                  </FormControl>
-                  <InputGroup.Button>
+                            if (e.key === 'Enter') {                      
+                            var movies = this.state.movies;
+                            movies.push({'title': this.state.newTitle, 'watched':false} );
+                            this.setState({movies: movies, newTitle: ''});
+                            this.input.value = ''
+                        }}}>
+              </FormControl>
+            <InputGroup.Button>
             <Button
               onClick={(e) => {
                 e.preventDefault();
@@ -154,21 +152,19 @@ class App extends Component {
             </InputGroup>
             </FormGroup>
           </form>
-          
-          
-          <WatchButton onClick={(e) => {
+          <ButtonGroup>
+          <WatchButton styleState={this.state.mode} onClick={(e) => {
             console.log(`clicked with ${e}`)
            this.handleUnwatched();
           }}  />
-          <ToWatchButton onClick={(e) => {
+          <ToWatchButton styleState={this.state.mode} onClick={(e) => {
             this.handleWatched();
            }} />
-          <ListGroup >
-          <MovieListItem  watchUnWatch ={ this.state.mode} query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
-             
+           </ButtonGroup>
+            <ListGroup >
+            {/* <MoviePanel  watchUnWatch ={ this.state.mode} query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MoviePanel>       */}
+              <MovieListItem  watchUnWatch ={ this.state.mode} query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>             
             </ListGroup>
-            
-
           </Panel.Body>
         </Panel>
         </Col>

@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 
 let WatchedButton = (props) => {
     return (
-        <Button onClick={props.onClick} bsStyle='success'>Watched</Button>
+        <Button onClick={props.onClick} bsStyle={props.styleState ? "success" :   "default"}>Watched</Button>
     )
 }
 
