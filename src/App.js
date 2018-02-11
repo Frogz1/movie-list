@@ -19,24 +19,30 @@ class App extends Component {
       movies: [
         {
           title: 'Mean Girls',
-          watched: false
+          watched: false,
+          display: true,
         }, {
           title: 'Hackers',
-          watched: false
+          watched: false,
+          display: true,
         }, {
           title: 'The Grey',
-          watched: false
+          watched: false,
+          display: true,
         }, {
           title: 'Sunshine',
-          watched: false
+          watched: false,
+          display: true,
         }, {
           title: 'Ex Machina',
-          watched: false
+          watched: false,
+          display: true
         }
       ],
 
       query: '',
-      show: false,
+      mode: true,
+      display: false,
       newTitle: '',
       watched: true,
       classNames: {
@@ -44,11 +50,24 @@ class App extends Component {
         default: 'badge badge-danger'
       },
       badge: <Badge bsStyle="success"></Badge>,
-      hidden: true
-      
+      hidden: true      
     }
   }
-
+  
+  handleWatched() {
+    this.setState({
+      mode: false
+    })
+    MovieListItem.componentWillUpdate;
+    
+  }
+  handleUnwatched() {
+    this.setState({
+      mode: true
+    })
+    MovieListItem.componentWillUpdate;
+    
+  }
   componentWillReceiveProps(e) {
     this.setState({query: e.target.value})
   }
@@ -64,11 +83,7 @@ class App extends Component {
     return ( 
       <WatchedBadge />
     )
-    // var movies = this.state.movies console.log(movies); movies.push({'title':
-    // this.state.newTitle}) console.log(movies) this.setState({   movies :
-    // this.movies.slice()   // movies: newMovie })
-
-  }
+    }
 
   render() {
     return (
@@ -100,7 +115,7 @@ class App extends Component {
                     
                         if (e.key === 'Enter') {                      
                         var movies = this.state.movies;
-                        movies.push({'title': this.state.newTitle, 'watched':false});
+                        movies.push({'title': this.state.newTitle, 'watched':false} );
                         this.setState({movies: movies, newTitle: ''});
                         this.input.value = ''
                         
@@ -141,10 +156,15 @@ class App extends Component {
           </form>
           
           
-          <WatchButton bsStyle="btn btn-success" />
-          <ToWatchButton />
+          <WatchButton onClick={(e) => {
+            console.log(`clicked with ${e}`)
+           this.handleUnwatched();
+          }}  />
+          <ToWatchButton onClick={(e) => {
+            this.handleWatched();
+           }} />
           <ListGroup >
-          <MovieListItem query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
+          <MovieListItem  watchUnWatch ={ this.state.mode} query={this.state.query} classNames={this.state.classNames} toggle={this.toggleBadge.bind(this)} display={this.state.hidden} movies={this.state.movies}></MovieListItem>
              
             </ListGroup>
             

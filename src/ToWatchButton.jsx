@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap'
 
 let ToWatchButton = (props) => {
     return (
-        <Button>To Watch</Button>
+        <Button onClick={props.onClick} bsStyle="default" >To Watch</Button>
     )
 }
 

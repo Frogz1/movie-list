@@ -7,7 +7,7 @@ var MovieListItem = (props) => {
     .movies
     .map((movie, i) => {
       if (i > 4 || props.movies.length === 5) {
-        return movie.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 ? <ListGroupItem button="false" key={i} onClickCapture={() => props.toggle(i)}>
+        return movie.title.toLowerCase().indexOf(props.query.toLowerCase()) !== -1 && movie.watched === props.watchUnWatch ? <ListGroupItem button="false" key={i} onClickCapture={() => props.toggle(i)}>
           <Badge hidden={!movie.watched} bsClass='badge badge-success'>watched</Badge>
           {movie.title}
         </ListGroupItem> : null;
